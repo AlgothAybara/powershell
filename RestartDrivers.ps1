@@ -19,6 +19,16 @@ function Message($message){
     Exit 1
 }
 
+# Function installs NuGet
+function NuGet {
+    try {
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force  
+    } Catch {
+        $message = "Update the NuGet minimum version required"
+        Message($message)
+    }
+}
+
 #Function Checks the powershell version. Some cmdlets require at least v.5 to run (Invoke-WebRequest)
 function PowershellChecker(){
     Write-Host "--- Checking Powershell Version ---"
@@ -81,6 +91,8 @@ function RestartDrivers {
 
 #Main function directs the flow of the script
 function Main {
+    PowershellChecker
+    NuGet
     PowershellChecker
     ModuleCheck($module)
     RestartDrivers
