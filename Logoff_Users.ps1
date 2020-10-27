@@ -9,11 +9,11 @@
             try{
                 write-host $user.Username
                 logoff $user.SessionID
-        } catch { 
+            } catch { 
                 $Error[0].Exception.GetType().FullName
                 Write-Warning $Error[0]
                 logoff $user.Username
-        }
+            }
         }
     }
 
@@ -22,6 +22,7 @@
         Where-Object {$_.UserName -notlike "*Font*"} |  Where-Object {$_.UserName -notlike "*Authority*"} | Where-Object {$_.UserName -notlike "*Window*"} |  `
         Sort-Object UserName -Unique
         $users
+        net users
         if ($users.count -gt 0){
             return $users
         } else {
