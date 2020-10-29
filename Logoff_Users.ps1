@@ -4,9 +4,10 @@
 #endregion
 
 # ********** Functions **********
+    #Function loops through an array of users, logs them out, and writes out their username once logged off
     function EndSession($user){
         foreach($user in $users){
-            try{
+            try {
                 write-host $user.Username
                 logoff $user.SessionID
             } catch { 
@@ -17,12 +18,11 @@
         }
     }
 
+    # Script gets an array of users and sends them to different functions
     function GetUsers {
         $users = Get-Process -IncludeUserName | Select-Object UserName,SessionId | Where-Object { $_.UserName -ne $null } |  `
         Where-Object {$_.UserName -notlike "*Font*"} |  Where-Object {$_.UserName -notlike "*Authority*"} | Where-Object {$_.UserName -notlike "*Window*"} |  `
         Sort-Object UserName -Unique
-        $users
-        net users
         if ($users.count -gt 0){
             return $users
         } else {
@@ -31,9 +31,17 @@
         }    
     }
 
+    # Script prints out all signed in users
+    function ShowUsers {
+        Write-Host "Users currently signed in:"
+        query user
+    }
 
+    # Main script that calls EndSession and gives it the output of the GetUsers function
     function Main {
+        ShowUsers
         EndSession(GetUsers)
+        ShowUsers
     }
 
 # ********** Script **********
