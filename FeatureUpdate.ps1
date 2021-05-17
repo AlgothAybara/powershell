@@ -7,10 +7,7 @@
 #endregion
 
 # ----- Declarations -----
-    Import-Module $env:SyncroModule
-
     $module = "PSWindowsUpdate"
-    $alertCat = "Windows Update Error"
     $url = 'https://go.microsoft.com/fwlink/?LinkID=799445'
     $dir = 'C:\temp\_Windows_Feature'
     $WindowsVer = 2004
@@ -36,7 +33,6 @@
 
     # Function creates alert and writes to terminal any error messages
     function Message($message){
-        Rmm-Alert -Category $alertCat -Body $message
         Write-Host($message)
         Exit 1
     }
