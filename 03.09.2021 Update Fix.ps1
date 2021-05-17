@@ -3,8 +3,6 @@
 #endregion
 
 # ----- Declarations -----
-Import-Module $env:SyncroModule
-
 $module = "PSWindowsUpdate"
 $alertCat = "03/13 Update Fix Error"
 $message = ""
@@ -13,7 +11,6 @@ $message = ""
 
 # Function creates alert and writes to terminal any error messages
 function Message($message){
-    #Rmm-Alert -Category $alertCat -Body $message
     Write-Host $message
     #Write-Host($message)
     Exit 1
